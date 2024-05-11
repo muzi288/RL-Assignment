@@ -17,11 +17,13 @@ def main():
         fourRoomsObj.newEpoch()
         done = False
         while not done:
-            x, y, package_state = fourRoomsObj.getPosition()  # Adjust to receive the correct state
+            x, y = fourRoomsObj.getPosition()  
+            package_state = fourRoomsObj.getPackagesRemaining()
             state_index = sum([2**i for i, has_package in enumerate(package_state) if has_package])
 
-            # Epsilon-greedy policy to choose action
+            # E-greedy policy to choose action
             if np.random.rand() < epsilon:
+                
                 action = np.random.choice(4)
             else:
                 action = np.argmax(Q[x, y, state_index])
