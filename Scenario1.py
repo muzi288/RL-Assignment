@@ -24,8 +24,8 @@ def main():
         done = False
         while not done:
             x, y = fourRoomsObj.getPosition()
-            new_x = max(0, min(new_x, 10))
-            new_y = max(0, min(new_y, 10))
+            x = max(0, min(x, 10))
+            y = max(0, min(y, 10))
 
             k = fourRoomsObj.getPackagesRemaining()
             
@@ -39,6 +39,11 @@ def main():
 
             # Execute action
             gridType, (new_x, new_y), packagesRemaining, isTerminal = fourRoomsObj.takeAction(action)
+            
+            new_x = max(0, min(new_x, 10))
+            new_y = max(0, min(new_y, 10))
+
+            
             new_state = (new_x, new_y, packagesRemaining)
             reward = -1 if not isTerminal else 100
             
