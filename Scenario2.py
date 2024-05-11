@@ -19,22 +19,31 @@ def main():
         while not done:
             x, y = fourRoomsObj.getPosition()  
             package_state = fourRoomsObj.getPackagesRemaining()
-            state_index = sum([2**i for i, has_package in enumerate(package_state) if has_package])
+            #state_index = sum([2**i for i, has_package in enumerate(package_state) if has_package])
+            
+            x = max(0, min(x, 10))
+            y = max(0, min(y, 10))
 
             # E-greedy policy to choose action
             if np.random.rand() < epsilon:
                 
                 action = np.random.choice(4)
             else:
-                action = np.argmax(Q[x, y, state_index])
+                #action = np.argmax(Q[x, y, state_index])
+                action = np.argmax(Q[x, y, package_state])
 
             # Take action and observe results
             gridType, (new_x, new_y), new_package_state, isTerminal = fourRoomsObj.takeAction(action)
-            new_state_index = sum([2**i for i, has_package in enumerate(new_package_state) if has_package])
+            #new_state_index = sum([2**i for i, has_package in enumerate(new_package_state) if has_package])
+            new_x = max(0, min(new_x, 10))
+            new_y = max(0, min(new_y, 10))
+
+            
             reward = -1 if not isTerminal else 100
 
             # Update Q-table
-            Q[x, y, state_index, action] += alpha * (reward + gamma * np.max(Q[new_x, new_y, new_state_index]) - Q[x, y, state_index, action])
+            #Q[x, y, state_index, action] += alpha * (reward + gamma * np.max(Q[new_x, new_y, new_state_index]) - Q[x, y, state_index, action])
+            Q[x, y, package_state, action] += alpha * (reward + gamma * np.max(Q[new_x, new_y, new_package_state]) - Q[x, y, package_state, action])
             
             if isTerminal:
                 done = True
