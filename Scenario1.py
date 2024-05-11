@@ -24,6 +24,9 @@ def main():
         done = False
         while not done:
             x, y = fourRoomsObj.getPosition()
+            new_x = max(0, min(new_x, 10))
+            new_y = max(0, min(new_y, 10))
+
             k = fourRoomsObj.getPackagesRemaining()
             
             state = (x, y, k)
