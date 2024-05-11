@@ -12,6 +12,7 @@ def main():
     fourRoomsObj = FourRooms(scenario)
     #getting the start position of the agent and number of remaining packages
     x, y = fourRoomsObj.getPosition()  # unpack x and y correctly
+    
     k = fourRoomsObj.getPackagesRemaining()  # Get remaining packages number
     print("Agent starts at: ({}, {}), with {} packages remaining".format(x, y, k))  # Output the starting position and package count
 
@@ -22,7 +23,8 @@ def main():
         fourRoomsObj.newEpoch()  # Reset environment
         done = False
         while not done:
-            x, y, k = fourRoomsObj.getPosition()
+            x, y = fourRoomsObj.getPosition()
+            k = fourRoomsObj.getPackagesRemaining()
             
             state = (x, y, k)
             #print(state)
