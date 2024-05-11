@@ -16,6 +16,7 @@ def main():
     for episode in range(num_episodes):
         fourRoomsObj.newEpoch()
         done = False
+        current_package_state = "none"
         while not done:
             x, y = fourRoomsObj.getPosition()  # Get current state
             state = state_mapping[current_package_state]
