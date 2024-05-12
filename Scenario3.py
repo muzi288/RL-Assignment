@@ -16,28 +16,33 @@ def main():
     for episode in range(num_episodes):
         fourRoomsObj.newEpoch()
         done = False
-        current_package_state = "none"
+        
+        current_package_state = 0 # Starting with 0 packages collected
         while not done:
             x, y = fourRoomsObj.getPosition()  # Get current state
-            state = state_mapping[current_package_state]
-            # Clamping to ensure positions are within bounds
-            x, y = max(0, min(x, 10)), max(0, min(y, 10))
+            #state = state_mapping[current_package_state]
+            #Clamping to ensure positions are within bounds
+            #x, y = max(0, min(x, 10)), max(0, min(y, 10))
 
-            # Epsilon-greedy action selection
+            # selection of E-greedy action 
             if np.random.rand() < epsilon:
                 action = np.random.choice(4)
             else:
-                action = np.argmax(Q[x, y, state])
+                action = np.argmax(Q[x, y, current_package_state])
 
             # Execute action
             #result = fourRoomsObj.takeAction(action)
             gridType, (new_x, new_y), new_package_state, isTerminal = fourRoomsObj.takeAction(action)
-            new_state = state_mapping[new_package_state]
+            #new_state = state_mapping[new_package_state]
+            
             new_x, new_y = max(0, min(new_x, 10)), max(0, min(new_y, 10))  # Clamping
 
             reward = -1 if not isTerminal else 100
             # Update Q-value
-            Q[x, y, state, action] += alpha * (reward + gamma * np.max(Q[new_x, new_y, new_state]) - Q[x, y, state, action])
+            Q[x, y, current_package_state, action] += alpha * (reward + gamma * np.max(Q[new_x, new_y, new_package_state]) - Q[x, y, current_package_state, action])
+
+            # Update current package state
+            current_package_state = new_package_state
 
             if isTerminal:
                 done = True
