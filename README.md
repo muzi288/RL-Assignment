@@ -15,8 +15,6 @@ The project includes multiple scenarios, each represented by a separate Python s
 - `Scenario2Stochastic.py`: Implements the multi-goal RL scenario with stochastic actions.
 - `Scenario3.py`: [Describe what this scenario does]
 - `Scenario3Stochastic.py`: [Describe what this scenario does with stochastic actions]
-- `Scenario4.py`: [Describe what this scenario does]
-- `Scenario4Stochastic.py`: [Describe what this scenario does with stochastic actions]
 - `requirements.txt`: Lists all Python dependencies for the project.
 
 ## Setup and Installation
