@@ -1,17 +1,29 @@
 from FourRooms import FourRooms
 import numpy as np
+import argparse
+
+def parse_arguments():
+    parser = argparse.ArgumentParser(description="Run the Four Rooms environment with optional stochastic actions for Scenario 1.")
+    parser.add_argument("-stochastic", action="store_true", help="Enable stochastic action space.")
+    args = parser.parse_args()
+    return args
+
+
 
 
 
 def main():
+    
+    args = parse_arguments()
     scenario = 'multi'
     alpha = 0.5  # Learning rate
     gamma = 0.9  # Discount factor
     epsilon = 0.1  # Exploration rate
     num_episodes = 500  # Modify as necessary
+    stochastic = args.stochastic
 
-    fourRoomsObj = FourRooms(scenario)
-    
+    #fourRoomsObj = FourRooms(scenario)
+    fourRoomsObj = FourRooms(scenario, stochastic=stochastic)
     
     Q = np.zeros((11, 11, 8, 4))  # Adjusted size as here are 2^3=8 possible states for the packages
     
