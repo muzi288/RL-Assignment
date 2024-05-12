@@ -22,7 +22,7 @@ def main():
             x, y = fourRoomsObj.getPosition()  # Get current state
             #state = state_mapping[current_package_state]
             #Clamping to ensure positions are within bounds
-            #x, y = max(0, min(x, 10)), max(0, min(y, 10))
+            x, y = max(0, min(x, 10)), max(0, min(y, 10))
 
             # selection of E-greedy action 
             if np.random.rand() < epsilon:
